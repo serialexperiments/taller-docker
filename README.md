@@ -1,29 +1,22 @@
+
 # Taller Docker October Tech Rancagua 2018
 
 Descripción
-   
+
 ## Parte 1: presentación
 
 ### 1. ¿Qué es Docker?
 
-Docker es una plataforma orientada a desarroladores y administradores de sistemas para
+Docker es una plataforma orientada a desarrolladores y administradores de sistemas para
 desarrollar, desplegar y correr aplicaciones con contenedores. Para comprenderlo existen
-dos conceptos claves: imagenes y contenedores.
+dos conceptos claves: imágenes y contenedores.
 
 Un contenedor es lanzado cuando se corre una imagen. Esta imagen es un paquete
-ejecutable que incluye todo lo necesario para correr una aplicacion: el codigo, funciones,
-librerias, variables de entorno y archivos de configuracion.
+ejecutable que incluye todo lo necesario para correr una aplicación: el código, funciones,
+librerías, variables de entorno y archivos de configuración.
 
-Un contenedor es una instancia de una imagen. La imagen se convierte enn un proceso del sistema.
-Puedes ver la lsita de contenedores corriendo con el comando docker ps (en Linux).
-
-El uso de contenedores es muy popular debido que a son:
-
-* Flexible: Incluso las aplicaciones mas complejas pueden ser puestas en contenedores.
-* Liviano: Los contenedores aprovechan y comparten el kernel del host.(1)
-* Intercambiable: Puedes desplegar y actualizar sobre la marcha.
-* Portable: Puedes construir en local, desplegar en la nube y correrlo en cualquier parte.
-* Escalable: Puedes incrementar y distribuir automaticamente replicas de los contenedores. (2)
+Un contenedor es una instancia de una imagen. La imagen se convierte en un proceso del sistema.
+Puedes ver la lista de contenedores corriendo con el comando docker ps (en Linux).
 
 Conceptos:
 * (1) Kernel:
@@ -32,17 +25,29 @@ Conceptos:
 
 ### 2. ¿Como funciona?
 
-
+En un principio contamos con una imagen base , sobre la que realizaremos los diferentes cambios. Tras confirmar estos cambios mediante la aplicación Docker , crearemos la imagen que usaremos. Esta imagen contiene únicamente las diferencias que hemos añadido con respecto a la base. Cada vez que queramos ejecutar esta imagen necesitaremos la base y las 'capas' de la imagen. Docker se encargará de acoplar la base, la imagen y las diferentes capas con los cambios para darnos el entorno que queremos desplegar para empezar a trabajar.
 
 ### 3. ¿Qué ventajas tiene?
+
+El uso de contenedores es muy popular debido que a son:
+
+* Flexible: Incluso las aplicaciones mas complejas pueden ser puestas en contenedores.
+* Liviano: Los contenedores aprovechan y comparten el kernel del host.(1)
+* Intercambiable: Puedes desplegar y actualizar sobre la marcha.
+* Portable: Puedes construir en local, desplegar en la nube y correrlo en cualquier parte.
+* Escalable: Puedes incrementar y distribuir automáticamente replicas de los contenedores. (2)
+
 ### 4. ¿Quién lo usa?
+
+Empresas como Visa, Ebay, Spotify, Amazon o Uber emplean el uso de contenedores para su software, siendo pioneros en la adopción de nuevas tecnologías y métodos productivos en el desarrollo de aplicaciones.
 ### 5. ¿Como mejora la productividad?
-### 6. Ecosistema Docker
-### 7. Workflow
+### 5. Ecosistema Docker
+### 6. Workflow
 
 ## Parte 2: demo con Docker Compose
 
-> Notas: 
+
+> Notas:
 	- El usuario del servidor es "docker" y la contraseña "admin".
 	- El comando SUDO no requiere contraseña.
 	- Esta instalacion esta orientada a arquitecturas x86_64 sobre Ubuntu 18.04. A pesar de que otros
@@ -51,75 +56,101 @@ Conceptos:
 
 ### 1. Instalación de Docker CE(Community Edition).
 
-Antes de install Docker CE por primera vez en tu equipo, necesitas agregar
-el repositorio de Docker. Despues de eso, podras instalar y actualizar Docker desde el repositorio.
+Antes de instalar Docker CE por primera vez en tu equipo, necesitas agregar
+el repositorio de Docker. Después de eso, podrás instalar y actualizar Docker desde el repositorio.
 
 #### Configurar el repositorio:
 
 ##### 1. Actualiza los repositorios con APT.
+
 	$ sudo apt update
 
 ##### 2. Instala los siguientes paquetes para permitir a APT trabajar sobre HTTPS.
 
-	$ sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+	$ sudo apt install apt-transport-https ca-certificates curl software-properties-common
 
-##### 3. Añade la llave GPG oficial de Docker.
+##### 3. Añade la llave GPG del repositorio oficial.
 
-	$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-Verifica que tienes la llave con la huella "9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88", buscando
-los ulitmos 8 caracteres de la huella.
+#### 4. Añade el repositorio APT.
 
-	$ sudo apt-key fingerprint 0EBFCD88
+  $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
-	pub   4096R/0EBFCD88 2017-02-22
-    	Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-	uid                  Docker Release (CE deb) <docker@docker.com>
-	sub   4096R/F273FCD8 2017-02-22
+##### 5. Actualiza la base de datos de paquetes.
 
-##### 4. Usa el siguiente comando para configurar el repositorio "estable". Siempre necesitaras el repositorio estable, incluso si necesitas instalar Docker desde los repositorio "edge" o "test". Para añadir el repositorio "edge" o "test"(o los dos) añade la palabra "edge" o "test" despues de la palabra "stable" en los comandos siguientes.
+  $ sudo apt update
 
-> Nota: El subcomando[...]
+##### 6. Finalmente instala Docker.
 
-	$ sudo add-apt-repository \
-	   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-	   $(lsb_release -cs) \
-	   stable"
+  $ sudo apt install docker-ce
 
-Leer Acerca de los canales "stable" y "edge". (Poner link)
+#### Ejecutar Docker sin el comando sudo (opcional).
 
-#### Instalar Docker CE.
+##### 1. Añade tu usuario al grupo de Docker.
 
-##### 1. Actualiza los repositorios con APT.
+  $ sudo usermod -aG docker ${USER}
 
-	$ sudo apt update
+##### 2. Para aplicar los cambios cierra sesion y vuelve a entrar con el siguiente comando.
 
-##### 2. Instala la ultima version de Docker CE.
+  $ su - ${USER}
 
-	$ sudo apt-get install docker-ce
+##### 3. Para añadir un usuario al grupo de Docker si no esta logeado usa el siguiente comando.
 
-##### 3. Para instalar una versión especifica de Docker CE, lista las versiones disponibles en el repo,  selecionala e instala.
+  $ sudo usermod -aG docker username
 
-##### 4. Verifica que Docker esta correctamente instalado corriendo la imagen "hello-world".
-
-	$ sudo docker run hello-world
-
-#### Desinstalar Docker CE.
+#### Desintalar Docker-CE
 
 ##### 1. Desinstalar el paquete Docker.
 
-##### 2. Imagenes, contenedores, volumenes o cualquier archivo de configuracion modifica en tu equipo no son removidos automaticamente. Para borrar las imagenes, contenedores y volumenes usa el comando:
+##### 2. Imágenes, contenedores, volúmenes o cualquier archivo de configuración modifica en tu equipo no son removidos automáticamente. Para borrar las imágenes, contenedores y volúmenes usa el comando:
 
 	$ sudo rm -rf /var/lib/docker
 
-Para cualquier archivo de configuracion editado debes eliminarlo manualmente.
+Para cualquier archivo de configuración editado debes eliminarlo manualmente.
 
-### 2. Explicación y descarga de imagenes
-### 3. Instalación de Docker Compose
-### 4. Creación de archivo docker-compose.yml
-### 5. Despliegue de aplicación
+### 2. Explicación y descarga de imágenes
 
+### Instalacion de Docker Compose
+
+1. Instalacion
+
+> sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+2. Otorgar permisos a docker-compose
+
+> sudo chmod +x /usr/local/bin/docker-compose
+
+- Verificar la version de docker-compose instalada
+
+3. Corriendo un contenedor con docker-compose
+> mkdir hello-world
+> cd hello-world
+
+4. Crear el archivo docker-compose.yml (se puede usar un editor como nano, vim, vscode  etc)
+
+> vim docker-compose.yml
+
+5. El contenido del archivo es:
+> my-test:
+ image: hello-world
+
+- La sintaxis debe ser importante seguir el orden de la indentacion, pues de lo contrario arrojará error.
+
+- Para listar las imagenes instaladas usamos:
+> docker images
+
+6. Para levantar la imagen creada ejecutamos:
+> docker-compose up
+
+- Para listar los contenedores que se estan ejecutando en tiempo real usamos:
+> docker ps
+
+- Para mostrar todos los contenedores
+> docker ps -a
+
+7. Para eliminar un contenedor usamos:
+> docker rm 06069fd5ca23
+
+8. Para eliminar una imagen usamos:
+> docker rmi hello-world
