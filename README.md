@@ -40,18 +40,14 @@ El uso de contenedores es muy popular debido que a son:
 ### 4. ¿Quién lo usa?
 
 Empresas como Visa, Ebay, Spotify, Amazon o Uber emplean el uso de contenedores para su software, siendo pioneros en la adopción de nuevas tecnologías y métodos productivos en el desarrollo de aplicaciones.
-### 5. ¿Como mejora la productividad?
-### 5. Ecosistema Docker
-### 6. Workflow
 
 ## Parte 2: demo con Docker Compose
-
 
 > Notas:
 	- El usuario del servidor es "docker" y la contraseña "admin".
 	- El comando SUDO no requiere contraseña.
-	- Esta instalacion esta orientada a arquitecturas x86_64 sobre Ubuntu 18.04. A pesar de que otros
-	sistemas operativos(Windows, MacOS) y arquitecturas(armhf, s390x, ppc64le) estan soportados, no seran
+	- Esta instalación esta orientada a arquitecturas x86_64 sobre Ubuntu 18.04. A pesar de que otros
+	sistemas operativos(Windows, MacOS) y arquitecturas(armhf, s390x, ppc64le) están soportados, no serán
 	cubiertas en esta guía.
 
 ### 1. Instalación de Docker CE(Community Edition).
@@ -85,13 +81,17 @@ el repositorio de Docker. Después de eso, podrás instalar y actualizar Docker 
 
   $ sudo apt install docker-ce
 
+Ahora que Docker esta instalado, el daemon corriendo y el proceso a sido habilitado en el inicio. Revisa si se encuentra corriendo:
+
+	$ sudo systemctl status docker
+
 #### Ejecutar Docker sin el comando sudo (opcional).
 
 ##### 1. Añade tu usuario al grupo de Docker.
 
   $ sudo usermod -aG docker ${USER}
 
-##### 2. Para aplicar los cambios cierra sesion y vuelve a entrar con el siguiente comando.
+##### 2. Para aplicar los cambios cierra sesión y vuelve a entrar con el siguiente comando.
 
   $ su - ${USER}
 
@@ -111,46 +111,56 @@ Para cualquier archivo de configuración editado debes eliminarlo manualmente.
 
 ### 2. Explicación y descarga de imágenes
 
-### Instalacion de Docker Compose
+#### Instalación de Docker Compose
 
-1. Instalacion
+##### 1. Debes revisar la [version actual](https://github.com/docker/compose/releases "Versiones") y si es necesario, actualizar el comando mas abajo.
 
-> sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	$ sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
-2. Otorgar permisos a docker-compose
+##### 2. Otorgar permisos a docker-compose
 
-> sudo chmod +x /usr/local/bin/docker-compose
+	$ sudo chmod +x /usr/local/bin/docker-compose
 
-- Verificar la version de docker-compose instalada
+#### Corriendo un contenedor con docker-compose.
 
-3. Corriendo un contenedor con docker-compose
-> mkdir hello-world
-> cd hello-world
+##### 1. Primero, creamos un directorio para el archivo YAML y lo movemos dentro de el.
 
-4. Crear el archivo docker-compose.yml (se puede usar un editor como nano, vim, vscode  etc)
+	$ mkdir hello-world
+	$ cd hello-world
 
-> vim docker-compose.yml
+##### 2. Crear el archivo docker-compose.yml (se puede usar un editor como nano, vim, vscode, etc)
 
-5. El contenido del archivo es:
-> my-test:
- image: hello-world
+	$ nano docker-compose.yml
 
-- La sintaxis debe ser importante seguir el orden de la indentacion, pues de lo contrario arrojará error.
+##### 3. Pon el siguiente contenido dentro del archivo, guardalo y sal del editor:
 
-- Para listar las imagenes instaladas usamos:
-> docker images
+>	my-test:
+		image: hello-world
 
-6. Para levantar la imagen creada ejecutamos:
-> docker-compose up
+Es importante revisar que la indentación este correcta, pues de lo contrario arrojará error.
 
-- Para listar los contenedores que se estan ejecutando en tiempo real usamos:
-> docker ps
+##### 4. Finalmente para levantar la imagen creada ejecutamos:
 
-- Para mostrar todos los contenedores
-> docker ps -a
+	$ docker-compose up
 
-7. Para eliminar un contenedor usamos:
-> docker rm 06069fd5ca23
+#### Comandos útiles:
 
-8. Para eliminar una imagen usamos:
-> docker rmi hello-world
+##### 1. Para listar las imágenes instaladas usamos:
+
+	$ docker images
+
+##### 2. Para listar los contenedores que se están ejecutando en tiempo real usamos:
+
+	$ docker ps
+
+##### 3. Para mostrar todos los contenedores
+
+	$ docker ps -a
+
+##### 4. Para eliminar un contenedor usamos:
+
+ 	$	docker rm ID_DE_LA_IMAGEN
+
+##### 5. Para eliminar una imagen usamos:
+
+ 	$ docker rmi NOMBRE_IMAGEN
