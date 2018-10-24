@@ -5,7 +5,7 @@ Descripción
 
 ## Parte 1: presentación
 
-### 1. ¿Qué es Docker?
+## 1. ¿Qué es Docker?
 
 Docker es una plataforma orientada a desarrolladores y administradores de sistemas para
 desarrollar, desplegar y correr aplicaciones con contenedores. Para comprenderlo existen
@@ -17,11 +17,6 @@ librerías, variables de entorno y archivos de configuración.
 
 Un contenedor es una instancia de una imagen. La imagen se convierte en un proceso del sistema.
 Puedes ver la lista de contenedores corriendo con el comando docker ps (en Linux).
-
-Conceptos:
-* (1) Kernel:
-* (1) Host:
-* (2) Escalabilidad Horizontal:
 
 ### 2. ¿Como funciona?
 
@@ -67,19 +62,19 @@ el repositorio de Docker. Después de eso, podrás instalar y actualizar Docker 
 
 ##### 3. Añade la llave GPG del repositorio oficial.
 
-  $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 #### 4. Añade el repositorio APT.
 
-  $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 ##### 5. Actualiza la base de datos de paquetes.
 
-  $ sudo apt update
+	$ sudo apt update
 
 ##### 6. Finalmente instala Docker.
 
-  $ sudo apt install docker-ce
+	$ sudo apt install docker-ce
 
 Ahora que Docker esta instalado, el daemon corriendo y el proceso a sido habilitado en el inicio. Revisa si se encuentra corriendo:
 
@@ -89,15 +84,15 @@ Ahora que Docker esta instalado, el daemon corriendo y el proceso a sido habilit
 
 ##### 1. Añade tu usuario al grupo de Docker.
 
-  $ sudo usermod -aG docker ${USER}
+	$ sudo usermod -aG docker ${USER}
 
 ##### 2. Para aplicar los cambios cierra sesión y vuelve a entrar con el siguiente comando.
 
-  $ su - ${USER}
+	$ su - ${USER}
 
 ##### 3. Para añadir un usuario al grupo de Docker si no esta logeado usa el siguiente comando.
 
-  $ sudo usermod -aG docker username
+	$ sudo usermod -aG docker username
 
 #### Desintalar Docker-CE
 
@@ -134,7 +129,7 @@ Para cualquier archivo de configuración editado debes eliminarlo manualmente.
 
 ##### 3. Pon el siguiente contenido dentro del archivo, guardalo y sal del editor:
 
->	my-test:
+	my-test:
 		image: hello-world
 
 Es importante revisar que la indentación este correcta, pues de lo contrario arrojará error.
@@ -159,8 +154,8 @@ Es importante revisar que la indentación este correcta, pues de lo contrario ar
 
 ##### 4. Para eliminar un contenedor usamos:
 
- 	$	docker rm ID_DE_LA_IMAGEN
+	$ docker rm ID_DE_LA_IMAGEN
 
 ##### 5. Para eliminar una imagen usamos:
 
- 	$ docker rmi NOMBRE_IMAGEN
+	$ docker rmi NOMBRE_IMAGEN
