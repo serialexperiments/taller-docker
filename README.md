@@ -1,7 +1,9 @@
 
 # Taller Docker October Tech Rancagua 2018
 
-Descripción
+Charla dada el Jueves 4 de Octubre en AIEP Sede Rancagua.
+
+![Logo AIEP](aiep-logo.png) ![Logo Docker](docker-logo.png)
 
 ## Parte 1: presentación
 
